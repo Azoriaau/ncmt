@@ -50,25 +50,25 @@ Videos live in `public/videos/`, images in `public/images/`.
 
 ## Contact form
 
-`public/contact.php` sends mail via PHP `mail()` on the host — no SMTP
-credentials required. It validates input, strips header injection, has a
-honeypot field and a 30s per-session throttle. Recipient and from address
-are constants at the top of the file. It only works on the live host (or
-any PHP server) — `next dev` serves it as a plain file.
+Handled by **Netlify Forms** — the form in `ContactForm.tsx` carries
+`data-netlify="true"` / `form-name: quote`, which Netlify detects in the
+prerendered HTML at deploy time. Submissions appear under Forms in the
+Netlify dashboard; configure an email notification there to get enquiries
+forwarded. The honeypot field (`company`) makes Netlify silently discard
+bot submissions. Submitting only works on the deployed site.
 
 ## Build & deploy
 
-```bash
-npm run build   # static export to out/
-```
-
-Upload the **contents** of `out/` to `public_html` on the cPanel host
-(`tar -czf site.tar.gz -C out . && upload && extract`).
+Deploys on Netlify from this repo (`netlify.toml`: build `npm run build`,
+publish `out/`). Push to `main` → Netlify builds and deploys.
 
 Deployment notes:
 
 - `robots.ts` / `sitemap.ts` carry `export const dynamic = "force-static"` —
   required for the export build.
-- If every PHP request suddenly returns an empty 500: check `public_html/.user.ini`
-  for a leftover Wordfence `auto_prepend_file` from the old WordPress install
-  (this bit us once — LiteSpeed caches `.user.ini` for ~5 minutes after fixing).
+- The domain's **MX records must stay pointed at the mail host** when the
+  site's A/CNAME records move — the `@ncmt.com.au` mailboxes don't live on
+  Netlify.
+- (Legacy: the site previously deployed to cPanel `public_html` with a
+  `contact.php` mailer. If PHP on that host ever 500s with an empty body,
+  check `.user.ini` for a leftover Wordfence `auto_prepend_file`.)

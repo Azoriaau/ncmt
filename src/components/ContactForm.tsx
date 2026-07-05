@@ -4,32 +4,30 @@ import { useState } from "react";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
+/**
+ * Quote form handled by Netlify Forms: Netlify detects the form in the
+ * prerendered HTML via data-netlify/form-name and captures AJAX
+ * submissions POSTed to "/". Submissions appear in the Netlify dashboard
+ * and trigger the configured email notification. Only works on the
+ * deployed Netlify site — locally the POST has nowhere to go.
+ */
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
-  const [error, setError] = useState<string>("");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("sending");
     try {
-      const res = await fetch("/contact.php", {
+      const body = new URLSearchParams(
+        new FormData(e.currentTarget) as unknown as Record<string, string>
+      ).toString();
+      const res = await fetch("/", {
         method: "POST",
-        body: new FormData(e.currentTarget),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body,
       });
-      const data = await res.json().catch(() => null);
-      if (res.ok && data?.ok) {
-        setStatus("sent");
-      } else {
-        setError(
-          data?.message ??
-            "Something went wrong sending your message. Please call or email us directly."
-        );
-        setStatus("error");
-      }
+      setStatus(res.ok ? "sent" : "error");
     } catch {
-      setError(
-        "Something went wrong sending your message. Please call or email us directly."
-      );
       setStatus("error");
     }
   }
@@ -46,7 +44,15 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form
+      name="quote"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="company"
+      onSubmit={handleSubmit}
+      className="space-y-4"
+    >
+      <input type="hidden" name="form-name" value="quote" />
       <input
         type="text"
         name="name"
@@ -61,7 +67,7 @@ export default function ContactForm() {
         required
         className="w-full rounded-xl bg-background border border-white/10 px-4 py-3 placeholder:text-muted/60 focus:border-accent focus:outline-none transition-colors"
       />
-      {/* Honeypot — hidden from real users, bots fill it in */}
+      {/* Honeypot — hidden from real users; Netlify discards submissions that fill it */}
       <input
         type="text"
         name="company"
@@ -77,7 +83,12 @@ export default function ContactForm() {
         required
         className="w-full rounded-xl bg-background border border-white/10 px-4 py-3 placeholder:text-muted/60 focus:border-accent focus:outline-none transition-colors resize-none"
       />
-      {status === "error" && <p className="text-red-400 text-sm">{error}</p>}
+      {status === "error" && (
+        <p className="text-red-400 text-sm">
+          Something went wrong sending your message. Please call or email us
+          directly.
+        </p>
+      )}
       <button
         type="submit"
         disabled={status === "sending"}
