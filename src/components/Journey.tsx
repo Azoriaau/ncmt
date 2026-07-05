@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
-import ScrollScrubVideo from "./ScrollScrubVideo";
+import PinnedVideo from "./PinnedVideo";
 
 const steps = [
   { at: 0.1, title: "Picked up", body: "Your freight is loaded and strapped by people who own the outcome." },
@@ -56,11 +56,11 @@ export default function Journey() {
 
   return (
     <section id="journey" ref={ref}>
-      <ScrollScrubVideo src="/videos/journey.mp4" viewportHeights={4}>
+      <PinnedVideo src="/videos/journey.mp4" viewportHeights={4}>
         {steps.map((s) => (
           <Step key={s.title} progress={scrollYProgress} {...s} />
         ))}
-      </ScrollScrubVideo>
+      </PinnedVideo>
     </section>
   );
 }
