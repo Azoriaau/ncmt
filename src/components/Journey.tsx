@@ -37,7 +37,7 @@ function Step({
       style={{ opacity, y }}
       className="absolute inset-x-0 bottom-24 mx-auto max-w-6xl px-6"
     >
-      <p className="font-mono text-accent text-sm tracking-[0.3em] uppercase mb-2">
+      <p className="font-mono text-accent-bright text-sm tracking-[0.3em] uppercase mb-2">
         {title}
       </p>
       <p className="text-2xl sm:text-4xl font-medium max-w-xl text-balance">

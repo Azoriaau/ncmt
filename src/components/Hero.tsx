@@ -24,7 +24,7 @@ export default function Hero() {
           initial={reduceMotion ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="font-mono font-bold text-accent text-sm tracking-[0.3em] uppercase mb-4"
+          className="font-mono font-bold text-accent-bright text-scrim text-sm tracking-[0.3em] uppercase mb-4"
         >
           Family-owned. On the road since day one.
         </motion.p>

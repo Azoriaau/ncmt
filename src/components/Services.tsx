@@ -26,7 +26,7 @@ export default function Services() {
     <section id="services" className="py-28 bg-background">
       <div className="mx-auto max-w-6xl px-6">
         <Reveal>
-          <p className="font-mono text-accent text-sm tracking-[0.3em] uppercase mb-3">
+          <p className="font-mono text-accent-bright text-sm tracking-[0.3em] uppercase mb-3">
             Services
           </p>
           <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight max-w-2xl">

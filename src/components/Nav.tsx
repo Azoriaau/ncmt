@@ -29,7 +29,7 @@ export default function Nav() {
     >
       <nav className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
         <a href="#" className="font-semibold tracking-tight text-lg">
-          NCMT<span className="text-accent">.</span>
+          NCMT<span className="text-accent-bright">.</span>
         </a>
         <div className="hidden sm:flex items-center gap-8 text-sm text-muted">
           {links.map((l) => (

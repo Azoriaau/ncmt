@@ -19,7 +19,7 @@ export default function Coverage() {
 
       <div className="relative z-10 mx-auto max-w-6xl px-6">
         <Reveal>
-          <p className="font-mono text-accent text-sm tracking-[0.3em] uppercase mb-3">
+          <p className="font-mono text-accent-bright text-sm tracking-[0.3em] uppercase mb-3">
             Coverage
           </p>
           <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight max-w-2xl">
@@ -36,7 +36,7 @@ export default function Coverage() {
           {stats.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.1}>
               <div>
-                <div className="text-3xl sm:text-4xl font-semibold text-accent">
+                <div className="text-3xl sm:text-4xl font-semibold text-accent-bright">
                   {s.value}
                 </div>
                 <div className="text-muted text-sm mt-1">{s.label}</div>
