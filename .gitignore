@@ -43,3 +43,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# AI assistant files
+CLAUDE.md
+AGENTS.md
+.claude/
+.github/copilot-instructions.md
