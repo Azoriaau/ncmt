@@ -143,7 +143,7 @@ export default function Journey() {
 
   return (
     <section id="journey" ref={ref}>
-      <div style={{ height: "400vh" }} className="relative">
+      <div style={{ height: "320vh" }} className="relative">
         <div className="sticky top-0 h-screen overflow-hidden bg-background">
           {/* Faint dot grid so the route has something to sit in */}
           <div
