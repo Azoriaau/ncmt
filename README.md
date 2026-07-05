@@ -64,9 +64,3 @@ Deployment notes:
 
 - `robots.ts` / `sitemap.ts` carry `export const dynamic = "force-static"` —
   required for the export build.
-- The domain's **MX records must stay pointed at the mail host** when the
-  site's A/CNAME records move — the `@ncmt.com.au` mailboxes don't live on
-  Netlify.
-- (Legacy: the site previously deployed to cPanel `public_html` with a
-  `contact.php` mailer. If PHP on that host ever 500s with an empty body,
-  check `.user.ini` for a leftover Wordfence `auto_prepend_file`.)
