@@ -33,6 +33,46 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
+/* Coverage map pins and labels (Leaflet) */
+.coverage-pin {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--accent-bright);
+  box-shadow: 0 0 0 3px rgb(107 139 255 / 0.25), 0 0 12px rgb(107 139 255 / 0.6);
+}
+.coverage-pin-depot {
+  background: var(--accent);
+  border: 2px solid var(--accent-bright);
+}
+.coverage-tooltip {
+  background: rgb(7 11 20 / 0.85);
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: 0.5rem;
+  color: var(--foreground);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  box-shadow: none;
+}
+.coverage-tooltip::before {
+  display: none;
+}
+.leaflet-container {
+  background: var(--surface);
+  font: inherit;
+}
+.leaflet-control-attribution {
+  background: rgb(7 11 20 / 0.7) !important;
+  color: var(--muted);
+  font-size: 0.6rem;
+}
+.leaflet-control-attribution a {
+  color: var(--muted) !important;
+}
+
 /* Keeps overlay text legible on bright video frames */
 .text-scrim {
   text-shadow:
