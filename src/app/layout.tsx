@@ -20,12 +20,32 @@ export const metadata: Metadata = {
   },
   description:
     "Family-owned transport and freight company. General freight, regional distribution and dedicated fleet services across Australia.",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "NCMT Transport",
     description:
       "Family-owned transport and freight company. Freight that never stops moving.",
     type: "website",
     locale: "en_AU",
+    url: "/",
+    siteName: "NCMT Transport",
+    images: [
+      {
+        url: "/videos/hero-still.jpg",
+        width: 1920,
+        height: 1080,
+        alt: "NCMT road train on the highway at sunrise",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "NCMT Transport",
+    description:
+      "Family-owned transport and freight company. Freight that never stops moving.",
+    images: ["/videos/hero-still.jpg"],
   },
 };
 
