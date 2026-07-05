@@ -14,9 +14,9 @@ const towns: {
 }[] = [
   { name: "Perth", lat: -31.9523, lng: 115.8613, depot: true },
   { name: "Geraldton", lat: -28.7742, lng: 114.6144, depot: true },
+  { name: "Mullewa", lat: -28.5388, lng: 115.5107 },
   { name: "Moora", lat: -30.6397, lng: 116.0089, side: "left" },
   { name: "Dalwallinu", lat: -30.2777, lng: 116.666 },
-  { name: "Wongan Hills", lat: -30.8933, lng: 116.7181 },
   { name: "Coorow", lat: -29.8815, lng: 116.0217, side: "left" },
   { name: "Carnamah", lat: -29.6893, lng: 115.8869, side: "left" },
   { name: "Three Springs", lat: -29.532, lng: 115.7594 },
