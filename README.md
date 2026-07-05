@@ -32,7 +32,7 @@ Single page (`src/app/page.tsx`) composed of sections in `src/components/`:
 |---|---|
 | `Hero` | Full-screen video (`HeroVideo`) that plays once, then fades to a still of its last frame |
 | `Services` | Three image cards |
-| `Journey` | Pinned video (`PinnedVideo`) — plays once when scrolled into view, freezes on last frame; captions animate on scroll |
+| `Journey` | Pinned section with a scroll-drawn SVG route (Depot → Highway → Door); captions and waypoints animate in sync |
 | `Coverage` | Background video loop at low opacity (`VideoLoop`) |
 | `Contact` | Quote form (`ContactForm`) — POSTs to `/contact.php` |
 
@@ -45,8 +45,6 @@ Videos live in `public/videos/`, images in `public/images/`.
   Whenever it changes, regenerate the poster (first frame) and end still (last frame):
   `ffmpeg -i hero.mp4 -frames:v 1 -q:v 2 hero-poster.jpg` and
   `ffmpeg -sseof -0.05 -i hero.mp4 -frames:v 1 -q:v 2 -update 1 hero-still.jpg`
-- **Journey** (`journey.mp4`): normal web compression:
-  `ffmpeg -i in.mp4 -crf 22 -preset slow -movflags +faststart -an journey.mp4`
 
 ## Contact form
 
