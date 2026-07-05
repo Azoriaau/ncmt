@@ -25,7 +25,7 @@ export default function Contact() {
             </p>
             <p>
               <span className="text-foreground font-medium">Email:</span>{" "}
-              ops@ncmt.com.au
+              ncmtwa@hotmail.com
             </p>
           </div>
         </Reveal>

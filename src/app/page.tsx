@@ -14,7 +14,7 @@ const jsonLd = {
   alternateName: "North Central Midlands Transport",
   url: "https://ncmt.com.au",
   telephone: "+61437428049",
-  email: "ops@ncmt.com.au",
+  email: "ncmtwa@hotmail.com",
   image: "https://ncmt.com.au/videos/hero-still.jpg",
   description:
     "Family-owned transport and freight company. General freight, regional distribution and dedicated fleet services across Australia.",
