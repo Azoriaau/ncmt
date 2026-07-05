@@ -25,7 +25,12 @@ export default function Contact() {
             </p>
             <p>
               <span className="text-foreground font-medium">Email:</span>{" "}
-              ncmtwa@hotmail.com
+              <a
+                href="mailto:ncmtwa@hotmail.com"
+                className="hover:text-foreground transition-colors"
+              >
+                ncmtwa@hotmail.com
+              </a>
             </p>
           </div>
         </Reveal>
