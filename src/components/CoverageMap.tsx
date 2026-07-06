@@ -15,8 +15,8 @@ const towns: {
   dy?: number;
 }[] = [
   { name: "Perth", lat: -31.9523, lng: 115.8613, depot: true },
-  { name: "Geraldton", lat: -28.7742, lng: 114.6144, depot: true },
-  { name: "Mullewa", lat: -28.5388, lng: 115.5107 },
+  { name: "Geraldton", lat: -28.7742, lng: 114.6144 },
+  { name: "Mullewa", lat: -28.5388, lng: 115.5107, depot: true },
   { name: "Moora", lat: -30.6397, lng: 116.0089, side: "left" },
   { name: "Dalwallinu", lat: -30.2777, lng: 116.666 },
   { name: "Coorow", lat: -29.8815, lng: 116.0217, side: "left", dy: 4 },
@@ -61,9 +61,11 @@ export default function CoverageMap() {
           iconAnchor: depot ? [9, 9] : [6, 6],
         });
 
-      // Phone-width containers squeeze the cluster until labels collide,
+      // Phone-width screens squeeze the cluster until labels collide,
       // so only depots keep permanent labels there; the rest show on tap.
-      const wide = containerRef.current!.clientWidth >= 640;
+      // Gate on the viewport, not the container: the desktop two-column
+      // layout caps the container near 526px, well under any phone cutoff.
+      const wide = window.innerWidth >= 640;
 
       towns.forEach((t) => {
         L.marker([t.lat, t.lng], { icon: pin(t.depot) })
