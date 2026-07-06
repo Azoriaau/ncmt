@@ -101,7 +101,7 @@ function Waypoint({
         cx={node.x}
         cy={node.y}
         r="26"
-        className="fill-background stroke-accent-bright"
+        className="fill-surface stroke-accent-bright"
         strokeWidth="2"
       />
       {children}
@@ -168,7 +168,15 @@ export default function Journey() {
   return (
     <section id="journey" ref={ref}>
       <div style={{ height: "280vh" }} className="relative">
-        <div className="sticky top-0 h-screen overflow-hidden bg-background">
+        <div className="sticky top-0 h-screen overflow-hidden bg-surface border-y border-white/5">
+          {/* Accent wash so the section reads as its own space */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse 90% 65% at 50% 38%, rgb(15 59 214 / 0.14), transparent 70%)",
+            }}
+          />
           {/* Faint dot grid so the route has something to sit in */}
           <div
             className="absolute inset-0 opacity-[0.35]"
@@ -247,8 +255,8 @@ export default function Journey() {
                   <path
                     d={`M ${nodes[1].x - 14} ${nodes[1].y - 7} h 17 v 12 h -17 z M ${nodes[1].x + 5} ${nodes[1].y - 3} h 6 l 4 5 v 3 h -10 z`}
                   />
-                  <circle cx={nodes[1].x - 8} cy={nodes[1].y + 8} r="2.6" className="fill-background" stroke="currentColor" />
-                  <circle cx={nodes[1].x + 9} cy={nodes[1].y + 8} r="2.6" className="fill-background" stroke="currentColor" />
+                  <circle cx={nodes[1].x - 8} cy={nodes[1].y + 8} r="2.6" className="fill-surface" stroke="currentColor" />
+                  <circle cx={nodes[1].x + 9} cy={nodes[1].y + 8} r="2.6" className="fill-surface" stroke="currentColor" />
                 </g>
               </Waypoint>
 
