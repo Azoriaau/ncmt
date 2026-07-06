@@ -4,8 +4,10 @@ import { useEffect, useRef, useState } from "react";
 
 /**
  * Hero background video that plays once, then fades to a still image
- * (the clip's final frame). Falls back to the still if the video fails
- * to load or the browser blocks autoplay.
+ * (the clip's final frame). If autoplay is blocked (low power mode,
+ * data saver, strict browser settings) playback retries on the first
+ * user gesture; the still only takes over on a media error or when
+ * the clip ends.
  */
 export default function HeroVideo({
   src,
@@ -22,10 +24,30 @@ export default function HeroVideo({
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // Kick playback once on mount only — re-running play() after the
-  // "ended" re-render would restart the clip. Autoplay can be blocked
-  // (e.g. data saver); show the still instead of a frozen first frame.
+  // "ended" re-render would restart the clip. Autoplay rejection isn't
+  // fatal: the same play() call is allowed once the user interacts, so
+  // retry on the first gesture rather than freezing on the poster.
   useEffect(() => {
-    videoRef.current?.play().catch(() => setEnded(true));
+    const video = videoRef.current;
+    if (!video) return;
+
+    const events = ["pointerdown", "touchend", "keydown", "scroll"] as const;
+    const cleanup = () => {
+      for (const e of events) window.removeEventListener(e, retry);
+    };
+    const retry = () => {
+      if (video.ended) {
+        cleanup();
+        return;
+      }
+      video.play().then(cleanup).catch(() => {});
+    };
+
+    video.play().catch(() => {
+      for (const e of events)
+        window.addEventListener(e, retry, { passive: true });
+    });
+    return cleanup;
   }, []);
 
   return (
