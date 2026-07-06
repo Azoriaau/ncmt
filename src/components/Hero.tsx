@@ -32,7 +32,7 @@ export default function Hero() {
           initial={reduceMotion ? false : { opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.35 }}
-          className="text-5xl sm:text-7xl font-semibold tracking-tight max-w-3xl text-balance"
+          className="font-display uppercase text-4xl sm:text-6xl leading-[1.05] tracking-tight max-w-3xl text-balance"
         >
           Freight that never stops moving.
         </motion.h1>
@@ -42,8 +42,8 @@ export default function Hero() {
           transition={{ duration: 0.9, delay: 0.5 }}
           className="mt-6 max-w-xl text-muted text-lg"
         >
-          NCMT moves general freight and dedicated loads across Australia -
-          reliably, on time, and with the care only a family business brings.
+          NCMT moves general freight and dedicated loads across Australia.
+          Reliably, on time, and with the care only a family business brings.
         </motion.p>
         <motion.div
           initial={reduceMotion ? false : { opacity: 0 }}
@@ -53,7 +53,7 @@ export default function Hero() {
         >
           <a
             href="#contact"
-            className="bg-accent hover:bg-accent-dim transition-colors text-background font-medium rounded-full px-6 py-3"
+            className="bg-accent hover:bg-accent-dim transition-colors text-white font-medium rounded-full px-6 py-3"
           >
             Get a quote
           </a>

@@ -4,22 +4,24 @@ import { useEffect, useRef } from "react";
 import "leaflet/dist/leaflet.css";
 
 // Edit this list to change the pins. depot: true gets a larger marker;
-// side: "left" flips the label for towns in tight clusters.
+// side: "left" flips the label and dy nudges it vertically, both for
+// keeping labels apart in tight clusters.
 const towns: {
   name: string;
   lat: number;
   lng: number;
   depot?: boolean;
   side?: "left" | "right";
+  dy?: number;
 }[] = [
   { name: "Perth", lat: -31.9523, lng: 115.8613, depot: true },
   { name: "Geraldton", lat: -28.7742, lng: 114.6144, depot: true },
   { name: "Mullewa", lat: -28.5388, lng: 115.5107 },
   { name: "Moora", lat: -30.6397, lng: 116.0089, side: "left" },
   { name: "Dalwallinu", lat: -30.2777, lng: 116.666 },
-  { name: "Coorow", lat: -29.8815, lng: 116.0217, side: "left" },
+  { name: "Coorow", lat: -29.8815, lng: 116.0217, side: "left", dy: 4 },
   { name: "Carnamah", lat: -29.6893, lng: 115.8869, side: "left" },
-  { name: "Three Springs", lat: -29.532, lng: 115.7594 },
+  { name: "Three Springs", lat: -29.532, lng: 115.7594, side: "left", dy: -8 },
   { name: "Morawa", lat: -29.2113, lng: 116.0089, side: "left" },
   { name: "Perenjori", lat: -29.4372, lng: 116.2841 },
 ];
@@ -59,13 +61,17 @@ export default function CoverageMap() {
           iconAnchor: depot ? [9, 9] : [6, 6],
         });
 
+      // Phone-width containers squeeze the cluster until labels collide,
+      // so only depots keep permanent labels there; the rest show on tap.
+      const wide = containerRef.current!.clientWidth >= 640;
+
       towns.forEach((t) => {
         L.marker([t.lat, t.lng], { icon: pin(t.depot) })
           .addTo(map)
           .bindTooltip(t.name, {
-            permanent: true,
+            permanent: wide || !!t.depot,
             direction: t.side ?? "right",
-            offset: [t.side === "left" ? -10 : 10, 0],
+            offset: [t.side === "left" ? -10 : 10, t.dy ?? 0],
             className: "coverage-tooltip",
           });
       });

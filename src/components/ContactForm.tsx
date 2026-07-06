@@ -58,14 +58,14 @@ export default function ContactForm() {
         name="name"
         placeholder="Name"
         required
-        className="w-full rounded-xl bg-background border border-white/10 px-4 py-3 placeholder:text-muted/60 focus:border-accent focus:outline-none transition-colors"
+        className="w-full rounded-xl bg-background border border-white/10 px-4 py-3 placeholder:text-muted/60 focus:border-accent-bright focus:outline-none transition-colors"
       />
       <input
         type="email"
         name="email"
         placeholder="Email"
         required
-        className="w-full rounded-xl bg-background border border-white/10 px-4 py-3 placeholder:text-muted/60 focus:border-accent focus:outline-none transition-colors"
+        className="w-full rounded-xl bg-background border border-white/10 px-4 py-3 placeholder:text-muted/60 focus:border-accent-bright focus:outline-none transition-colors"
       />
       {/* Honeypot — hidden from real users; Netlify discards submissions that fill it */}
       <input
@@ -81,7 +81,7 @@ export default function ContactForm() {
         placeholder="What are you moving, from where to where?"
         rows={4}
         required
-        className="w-full rounded-xl bg-background border border-white/10 px-4 py-3 placeholder:text-muted/60 focus:border-accent focus:outline-none transition-colors resize-none"
+        className="w-full rounded-xl bg-background border border-white/10 px-4 py-3 placeholder:text-muted/60 focus:border-accent-bright focus:outline-none transition-colors resize-none"
       />
       {status === "error" && (
         <p className="text-red-400 text-sm">
@@ -92,7 +92,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="w-full bg-accent hover:bg-accent-dim disabled:opacity-60 transition-colors text-background font-medium rounded-xl py-3"
+        className="w-full bg-accent hover:bg-accent-dim disabled:opacity-60 transition-colors text-white font-medium rounded-xl py-3"
       >
         {status === "sending" ? "Sending…" : "Request a quote"}
       </button>

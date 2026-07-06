@@ -9,11 +9,11 @@ export default function Contact() {
           <p className="font-mono text-accent-bright text-sm tracking-[0.3em] uppercase mb-3">
             Contact
           </p>
-          <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight">
+          <h2 className="font-display uppercase text-2xl sm:text-4xl tracking-tight">
             Got freight to move?
           </h2>
           <p className="mt-6 text-muted text-lg max-w-md">
-            Tell us what, where and when - we&apos;ll come back with a straight
+            Tell us what, where and when. We&apos;ll come back with a straight
             answer and a fair price.
           </p>
           <div className="mt-8 space-y-2 text-muted">

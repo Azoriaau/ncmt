@@ -21,6 +21,7 @@
   --color-accent-bright: var(--accent-bright);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-archivo-black);
 }
 
 html {
@@ -78,6 +79,11 @@ body {
   text-shadow:
     0 1px 3px rgb(0 0 0 / 0.7),
     0 2px 16px rgb(0 0 0 / 0.5);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-bright);
+  outline-offset: 2px;
 }
 
 ::selection {

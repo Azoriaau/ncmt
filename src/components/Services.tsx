@@ -3,7 +3,7 @@ import Reveal from "./Reveal";
 const services = [
   {
     title: "General freight",
-    body: "Palletised and loose freight moved daily on scheduled runs. Full loads or part loads - same care either way.",
+    body: "Palletised and loose freight moved daily on scheduled runs. Full loads or part loads, same care either way.",
     image: "/images/service-general.jpg",
     alt: "Forklift loading palletised freight into a curtain-side trailer",
   },
@@ -29,7 +29,7 @@ export default function Services() {
           <p className="font-mono text-accent-bright text-sm tracking-[0.3em] uppercase mb-3">
             Services
           </p>
-          <h2 className="text-3xl sm:text-5xl font-semibold tracking-tight max-w-2xl">
+          <h2 className="font-display uppercase text-2xl sm:text-4xl tracking-tight max-w-2xl">
             What we carry, and how.
           </h2>
         </Reveal>
