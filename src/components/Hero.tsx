@@ -8,10 +8,13 @@ export default function Hero() {
 
   return (
     <section className="relative h-screen min-h-[600px] overflow-hidden">
+      {/* Bump ?v= whenever the media files change: browsers mix cached
+          range requests for old and new bytes on a same-URL swap, which
+          stalls the video element. */}
       <HeroVideo
-        src="/videos/hero.mp4"
-        poster="/videos/hero-poster.jpg"
-        still="/videos/hero-still.jpg"
+        src="/videos/hero.mp4?v=2"
+        poster="/videos/hero-poster.jpg?v=2"
+        still="/videos/hero-still.jpg?v=2"
         className="absolute inset-0 h-full w-full"
       />
       {/* Darken the lower-left where the headline sits */}

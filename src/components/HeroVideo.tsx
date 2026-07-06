@@ -20,7 +20,7 @@ export default function HeroVideo({
   still: string;
   className?: string;
 }) {
-  const [ended, setEnded] = useState(false);
+  const [showStill, setShowStill] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // Kick playback once on mount only — re-running play() after the
@@ -47,7 +47,18 @@ export default function HeroVideo({
       for (const e of events)
         window.addEventListener(e, retry, { passive: true });
     });
-    return cleanup;
+
+    // A stalled media fetch (flaky network, poisoned media cache) never
+    // fires ended or error — swap to the still rather than sit on the
+    // poster. onPlaying flips back if playback recovers later.
+    const watchdog = setTimeout(() => {
+      if (video.readyState < 2) setShowStill(true);
+    }, 4000);
+
+    return () => {
+      cleanup();
+      clearTimeout(watchdog);
+    };
   }, []);
 
   return (
@@ -61,15 +72,16 @@ export default function HeroVideo({
         muted
         playsInline
         preload="auto"
-        onEnded={() => setEnded(true)}
-        onError={() => setEnded(true)}
+        onEnded={() => setShowStill(true)}
+        onError={() => setShowStill(true)}
+        onPlaying={() => setShowStill(false)}
       />
       <img
         src={still}
         alt=""
         aria-hidden
         className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
-          ended ? "opacity-100" : "opacity-0"
+          showStill ? "opacity-100" : "opacity-0"
         }`}
       />
     </div>
