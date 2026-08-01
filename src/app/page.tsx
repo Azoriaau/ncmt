@@ -13,7 +13,7 @@ const jsonLd = {
   name: "NCMT Transport",
   alternateName: "North Central Midlands Transport",
   url: "https://ncmt.com.au",
-  telephone: "+61437428049",
+  telephone: "+61437428349",
   email: "ncmtwa@hotmail.com",
   image: "https://ncmt.com.au/videos/hero-still.jpg",
   description:
