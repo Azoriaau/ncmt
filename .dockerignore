@@ -1,0 +1,14 @@
+.git
+.github
+node_modules
+.next
+out
+npm-debug.log*
+.env
+.env.local
+.env.*.local
+tsconfig.tsbuildinfo
+Dockerfile
+.dockerignore
+netlify.toml
+README.md

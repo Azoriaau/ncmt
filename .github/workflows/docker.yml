@@ -1,0 +1,84 @@
+name: Build container
+
+on:
+  push:
+    branches: ["**"]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Pull requests from forks cannot read packages:write, so only log in
+      # when we are actually going to push.
+      - name: Log in to GHCR
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Derive tags and labels
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=sha,format=long
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          # NEXT_PUBLIC_* live in Actions *secrets*, so they must be read with
+          # secrets.* — vars.* reads Actions *variables* and would silently
+          # resolve to an empty string, leaving the contact form on its
+          # Netlify Forms fallback with no build error. If they are ever moved
+          # to variables, these two lines have to move with them.
+          build-args: |
+            NEXT_PUBLIC_CONTACT_ENDPOINT=${{ secrets.NEXT_PUBLIC_CONTACT_ENDPOINT }}
+            NEXT_PUBLIC_TURNSTILE_SITE_KEY=${{ secrets.NEXT_PUBLIC_TURNSTILE_SITE_KEY }}
+
+      - name: Smoke test the image
+        run: |
+          IMAGE=$(printf '%s\n' "${{ steps.meta.outputs.tags }}" | head -n1)
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            IMAGE=ncmt:pr
+            docker build -t "$IMAGE" .
+          fi
+          docker run -d --name ncmt -p 8080:3000 "$IMAGE"
+          for i in $(seq 1 20); do
+            curl -fsS http://localhost:8080/healthz >/dev/null && break
+            sleep 1
+          done
+          curl -fsS http://localhost:8080/ >/dev/null
+          curl -fsS http://localhost:8080/sitemap.xml >/dev/null
+          curl -fsS http://localhost:8080/robots.txt >/dev/null
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/nope)" = "404"
+          docker rm -f ncmt
