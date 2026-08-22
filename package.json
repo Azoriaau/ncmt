@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@azoria/lead-form": "^0.3.0",
     "leaflet": "^1.9.4",
     "motion": "^12.42.2",
     "next": "16.2.10",

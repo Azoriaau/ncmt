@@ -1,6 +1,6 @@
 import Reveal from "./Reveal";
 
-const services = [
+export const services = [
   {
     title: "General freight",
     body: "Palletised and loose freight moved daily on scheduled runs. Full loads or part loads, same care either way.",
