@@ -65,7 +65,16 @@ export default function RootLayout({
       lang="en-AU"
       className={`${geistSans.variable} ${geistMono.variable} ${archivoBlack.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        {/* Azoria Leads analytics — keyed to the same tenant as the contact
+            form's ingest endpoint. */}
+        <script
+          defer
+          src="https://leads.azoria.com.au/a.js"
+          data-key="lk_RhNT1xcBBzNSfhB7VeiLeJXw"
+        />
+      </body>
     </html>
   );
 }
